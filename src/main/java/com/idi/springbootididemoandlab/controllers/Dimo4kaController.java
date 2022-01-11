@@ -3,12 +3,14 @@ package com.idi.springbootididemoandlab.controllers;
 import com.idi.idilogger.IdiLogger;
 import com.idi.springbootididemoandlab.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Evgeny Borisov
  */
 @RestController
+@ConditionalOnProperty(value = "runtime.env",havingValue = "PROD")
 public class Dimo4kaController {
 
     @Autowired
@@ -16,7 +18,7 @@ public class Dimo4kaController {
 
 
     @PostMapping("/api/person/save")
-    public String save(Person person) {
+    public String save(@RequestBody Person person) {
         System.out.println(person + " was saved");
         return "OK";
     }
